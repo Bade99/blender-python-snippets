@@ -1,6 +1,10 @@
 # Blender Python Code Snippets
 A collection of helpful Python code snippets for use in Blender.
 
+## FixSelectedQuads (Semi-Automated Retopology)
+![FixSelectedQuads](https://github.com/Bade99/blender-python-snippets/assets/31745377/f35254d7-f3ac-46b6-b567-61d57efcaf24)
+
+
 ## ShowFinalTriCount
 ![ShowFinalTriCount](https://github.com/Bade99/blender-python-snippets/assets/31745377/87e12024-664c-426a-bdcc-19949be38018)
 
