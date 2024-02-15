@@ -1,4 +1,4 @@
-#Prints to the console a table with vertex, edge, face and tri information for all the objects currently selected
+#Prints to the console a table with vertex, edge, face and tri information (with all modifiers applied) for all the objects currently selected
 import bpy
 
 def print(data):
@@ -9,6 +9,7 @@ def print(data):
                 override = {'window': window, 'screen': screen, 'area': area}
                 bpy.ops.console.scrollback_append(override, text=str(data), type="OUTPUT")
 
+assert len(bpy.context.selected_objects) > 0, "Please select the objects you want information for!"
 sorted = True
 if not sorted:
     verts, edges, faces, tris_aprox = 0, 0, 0, 0
@@ -33,7 +34,6 @@ else:
     tot_v, tot_e, tot_f, tot_t = 0,0,0,0
     objs = [] #[(name, verts, edges, faces, tris),...]
     dg = bpy.context.evaluated_depsgraph_get()
-    print('-'*100)
     for obj in bpy.context.selected_objects:
         name, verts, edges, faces, tris_aprox = '', 0, 0, 0, 0
         obj = obj.evaluated_get(dg)
@@ -52,9 +52,12 @@ else:
     template_header = "|{0:" + str(name_len+1) + "}|{1:10}  |{2:10}  |{3:10}  |{4:10}  |"
     template = "| {0:" + str(name_len) + "}|{1:10} v|{2:10} e|{3:10} f|{4:10} t|" # Number after the ':' is the column width
     
+    char_cnt = len(template_header.format(*objs[0]))
+    print('-'*char_cnt)
+    
     print(template_header.format("OBJECT", "VERTS", "EDGES", "FACES", "TRIS"))
     for o in objs: print(template.format(*o))
     print("")
     print(f'Total : Verts : {tot_v} | Edges : {tot_e} | Faces : {tot_f} | Tris : {tot_t}')
-    print('-'*100)
+    print('-'*char_cnt)
     print("")
